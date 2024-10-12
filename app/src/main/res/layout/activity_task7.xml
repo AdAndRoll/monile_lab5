@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Task7">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Кнопка для открытия сайта -->
+        <Button
+            android:id="@+id/btnOpenSite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Открыть любимый сайт" />
+
+        <!-- WebView для отображения сайта -->
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="602dp" />
+
+        <Button
+            android:id="@+id/nextBut"
+            android:layout_width="378dp"
+            android:layout_height="wrap_content"
+            android:text="next" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
