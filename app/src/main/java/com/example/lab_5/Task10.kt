@@ -1,10 +1,12 @@
 package com.example.lab_5
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -28,6 +30,11 @@ class Task10 : AppCompatActivity() {
         // Обработка клика по элементу списка
         listView.setOnItemClickListener { _, view, position, _ ->
             showPopupMenu(view, position)
+        }
+        val NextBut= findViewById<Button>(R.id.nextBut)
+        NextBut.setOnClickListener{
+            val intent = Intent(this, Task11::class.java)
+            startActivity(intent)
         }
     }
 
