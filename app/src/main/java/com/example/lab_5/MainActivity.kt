@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
 
         val arguments = intent.extras
         if (arguments != null && arguments.containsKey("stackDepth")) {
-            stackDepth = arguments.getInt("stackDepth")
-            findViewById<TextView>(R.id.depthTextView).text = stackDepth.toString()
+            findViewById<TextView>(R.id.depthTextView).text = arguments.getInt("stackDepth").toString()
+            stackDepth++
         } else {
             findViewById<TextView>(R.id.depthTextView).text = "0"
         }
