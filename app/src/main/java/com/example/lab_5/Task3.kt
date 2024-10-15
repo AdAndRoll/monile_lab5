@@ -3,7 +3,9 @@ package com.example.lab_5
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -43,8 +45,12 @@ class Task3 : AppCompatActivity() {
         btnSelectTime.setOnClickListener {
             showTimePickerDialog()
         }
-        val NextBut= findViewById<Button>(R.id.nextBut)
-        NextBut.setOnClickListener{
+
+        // Кнопка для перехода на следующее задание
+        val nextBut = findViewById<Button>(R.id.nextBut)
+        nextBut.setOnClickListener {
+            // Остановка сервиса перед переходом на другую активность
+            stopService(Intent(this, TimeNotificationService::class.java))
             val intent = Intent(this, Task6::class.java)
             startActivity(intent)
         }
@@ -95,11 +101,33 @@ class Task3 : AppCompatActivity() {
             this,
             { _, selectedHour, selectedMinute ->
                 val selectedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
-                txtSelectedTime.text = selectedTime
+                txtSelectedTime.text = selectedTime  // Обновление TextView с выбранным временем
+
+                // Запуск службы уведомлений сразу после выбора времени
+                startNotificationService(selectedTime)
             },
             hour, minute, true
         )
         timePickerDialog.show()
     }
 
+    // Функция для запуска службы уведомлений
+    private fun startNotificationService(selectedTime: String) {
+        Log.d("Task3", "Запуск сервиса уведомлений с временем: $selectedTime")
+        val intent = Intent(this, TimeNotificationService::class.java).apply {
+            action = TimeNotificationService.ACTION_UPDATE_TIME
+            putExtra(TimeNotificationService.EXTRA_TIME, selectedTime)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Остановка сервиса при закрытии активности
+        stopService(Intent(this, TimeNotificationService::class.java))
+    }
 }

@@ -70,6 +70,8 @@ class Task11 : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        // Остановка службы при уничтожении активности, чтобы закрыть уведомление
+        stopService(Intent(this, CounterService::class.java))
         // Отменить регистрацию приемника при уничтожении активности
         LocalBroadcastManager.getInstance(this).unregisterReceiver(counterReceiver)
     }
